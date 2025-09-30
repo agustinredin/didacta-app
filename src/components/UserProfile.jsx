@@ -6,7 +6,6 @@ const Profile = () => {
   const [error, setError] = useState("")
 
 
-
   useEffect(() => {
     const fetchProfile = async () => {
       const token = localStorage.getItem("token");
