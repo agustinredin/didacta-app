@@ -1,12 +1,16 @@
 import React from "react";
+import AuthPage from "./components/AuthPage";
+import UserProfile from './components/UserProfile'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 export default function App({ ejemplo }) {
+  
   return (
-    <div className="app">
-      <header>
-        <h1>Welcome to Didacta App</h1>
-        <p>Your Vite + React + TypeScript starter</p>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<AuthPage/>} />
+        <Route path="/profile" element={<UserProfile/>} />
+      </Routes>
+    </Router>
   );
 }
