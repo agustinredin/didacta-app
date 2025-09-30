@@ -1,12 +1,10 @@
 import React from "react";
+import AuthPage from "./components/AuthPage";
 
 export default function App({ ejemplo }) {
   return (
     <div className="app">
-      <header>
-        <h1>Welcome to Didacta App</h1>
-        <p>Your ite + React + TypeScript starter</p>
-      </header>
+      <AuthPage/>
     </div>
   );
 }
