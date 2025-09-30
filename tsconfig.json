@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "target": "esnext",
+        "useUnknownInCatchVariables": false,
+        "lib": [
+            "DOM",
+            "DOM.Iterable",
+            "ESNext"
+        ],
+        "skipLibCheck": true,
+        "checkJs": true,
+        "esModuleInterop": true,
+        "allowJs": true,
+        "strict": false,
+        "forceConsistentCasingInFileNames": true,
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": false,
+        "jsx": "react-jsx",
+        "types": [
+            "vite/client"
+        ]
+    },
+    "include": [
+        "src"
+    ]
+}
