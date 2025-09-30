@@ -5,7 +5,7 @@ export default function App({ ejemplo }) {
     <div className="app">
       <header>
         <h1>Welcome to Didacta App</h1>
-        <p>Your Vite + React + TypeScript starter</p>
+        <p>Your ite + React + TypeScript starter</p>
       </header>
     </div>
   );
