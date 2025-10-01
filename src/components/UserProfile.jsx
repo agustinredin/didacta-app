@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Profile = () => {
   const [usuario, setUsuario] = useState(null)
   const [error, setError] = useState("")
+  const {logout} = useAuth()
+  const navigate = useNavigate()
 
 
   useEffect(() => {
@@ -40,7 +44,10 @@ const Profile = () => {
     fetchProfile();
   }, []);
 
-
+  const handleLogout = () => {
+    logout()
+    navigate('/')
+  }
 
   if (error) return <p className="text-red-500">{error}</p>;
   if (!usuario) return <p>Cargando perfil...</p>;
@@ -62,13 +69,13 @@ const Profile = () => {
       <p>
         <strong>Email:</strong> {usuario.email}
       </p>
-{/* 
+
        <button
         onClick={handleLogout}
         className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
       >
         Cerrar sesión
-      </button> */}
+      </button>
 
     </div>
   );

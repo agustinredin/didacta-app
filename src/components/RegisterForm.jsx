@@ -1,39 +1,42 @@
 import { useState } from "react";
-import InputField from "./InputField";
 import { GoogleLogin } from "@react-oauth/google"
-import {jwtDecode} from "jwt-decode"
 import { useNavigate } from "react-router-dom";
+import {jwtDecode} from "jwt-decode"
+import { useAuth } from "../context/AuthContext";
+import InputField from "./InputField";
 
 export default function RegisterForm({ onSwitch }) {
-  const [formData, setFormData] = useState({ name: "", email: "", password: "" });
-  const [message, setMessage] = useState("");
-    const [error, setError] = useState("")
+  const [formData, setFormData] = useState({ name: "", email: "", password: "" })
+  const [message, setMessage] = useState("")
+  const [error, setError] = useState("")
+  const {register} = useAuth()
   const navigate = useNavigate()
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     try {
       const res = await fetch("http://localhost:8080/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
-      });
+      })
 
       const data = await res.json();
       if (res.ok) {
-        setMessage(`✅ Registro exitoso: ${data.name}`);
+        register(data.name, data.token)
+        navigate('/menu')
       } else {
-        setMessage(`❌ ${data.message}`);
+        setMessage(`❌ ${data.message}`)
       }
-    } catch {
-      setMessage("Error de conexión con el servidor");
+    } catch (err){
+        setMessage("Error: " + err.message)
     }
-  };
+  }
 
   const handleGoogleSuccess = async (credentialResponse) => {
     console.log(credentialResponse)
@@ -63,7 +66,7 @@ export default function RegisterForm({ onSwitch }) {
   }
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-6 w-80 space-y-4">
+    <div className="bg-white shadow-lg rounded-2xl p-8 w-96 space-y-6 border border-gray-200">
       <h2 className="text-xl font-bold text-center">Registro</h2>
 
       <form onSubmit={handleSubmit} className="space-y-3">
@@ -91,7 +94,7 @@ export default function RegisterForm({ onSwitch }) {
 
         <button
           type="submit"
-          className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600"
+          className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 cursor-pointer"
         >
           Registrarse
         </button>
@@ -108,7 +111,7 @@ export default function RegisterForm({ onSwitch }) {
 
       <p className="text-center text-sm text-gray-600">
         ¿Ya tienes cuenta?{" "}
-        <button onClick={onSwitch} className="text-blue-500 underline">
+        <button onClick={onSwitch} className="text-blue-600 font-medium hover:underline cursor-pointer">
           Inicia sesión
         </button>
       </p>

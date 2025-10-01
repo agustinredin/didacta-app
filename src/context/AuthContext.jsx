@@ -1,45 +1,48 @@
-// import { createContext, useContext, useState, useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
+import { createContext, useContext, useState, useEffect } from "react";
 
-// const AuthContext = createContext();
+const AuthContext = createContext();
 
-// export function AuthProvider({ children }) {
-//   const [user, setUser] = useState(null);
-//   const [token, setToken] = useState(null);
-//   const navigate = useNavigate();
+export function AuthProvider({ children }) {
+  const [user, setUser] = useState(null)
+  const [token, setToken] = useState(null)
 
-//   useEffect(() => {
-//     const storedToken = localStorage.getItem("token");
-//     const storedUser = localStorage.getItem("user");
-//     if (storedToken) {
-//       setToken(storedToken);
-//       if (storedUser) setUser(JSON.parse(storedUser));
-//     }
-//   }, []);
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token")
+    const storedUser = localStorage.getItem("user")
+    if (storedToken) {
+      setToken(storedToken);
+      if (storedUser) setUser(JSON.parse(storedUser))
+    }
+  }, []);
 
-//   const login = (userData, tokenData) => {
-//     localStorage.setItem("token", tokenData);
-//     localStorage.setItem("user", JSON.stringify(userData));
-//     setToken(tokenData);
-//     setUser(userData);
-//     navigate("/profile");
-//   };
+  const register = (userData, tokenData) => {
+    localStorage.setItem("token", tokenData);
+    localStorage.setItem("user", JSON.stringify(userData))
+    setToken(tokenData)
+    setUser(userData)
+  }
 
-//   const logout = () => {
-//     localStorage.removeItem("token");
-//     localStorage.removeItem("user");
-//     setToken(null);
-//     setUser(null);
-//     navigate("/");
-//   };
+  const login = (userData, tokenData) => {
+    localStorage.setItem("token", tokenData)
+    localStorage.setItem("user", JSON.stringify(userData))
+    setToken(tokenData)
+    setUser(userData)
+  };
 
-//   return (
-//     <AuthContext.Provider value={{ user, token, login, logout }}>
-//       {children}
-//     </AuthContext.Provider>
-//   );
-// }
+  const logout = () => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("user")
+    setToken(null);
+    setUser(null);
+  };
 
-// export function useAuth() {
-//   return useContext(AuthContext);
-// }
+  return (
+    <AuthContext.Provider value={{ user, token, login, logout, register }}>
+      {children}
+    </AuthContext.Provider>
+  );
+}
+
+export function useAuth() {
+  return useContext(AuthContext)
+}
