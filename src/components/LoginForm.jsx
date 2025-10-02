@@ -2,6 +2,7 @@ import { useState } from "react";
 import InputField from "./InputField";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 export default function LoginForm({ onSwitch }) {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -36,12 +37,12 @@ export default function LoginForm({ onSwitch }) {
   };
 
   return (
-    <div className="bg-white shadow-lg rounded-2xl p-8 w-96 space-y-6 border border-gray-200">
+    <div className="bg-white shadow-lg rounded-2xl p-8 w-96 space-y-3 border border-gray-200">
       <h2 className="text-2xl font-semibold text-center text-gray-800">
         Bienvenido de nuevo
       </h2>
-      <p className="text-center text-sm text-gray-500">
-        Ingresa con tu cuenta para continuar
+      <p className="text-center text-sm font-semibold text-orange-500">
+        DIDACTA.AI
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -85,11 +86,19 @@ export default function LoginForm({ onSwitch }) {
         </button>
       </form>
 
+      
+        <Link
+          to="/reset-password"
+          className="text-blue-600 text-sm font-medium hover:underline cursor-pointer"
+        >
+        ¿Olvidaste tu contraseña?
+        </Link>
+
       {message && (
         <p className="text-center text-sm text-red-500 font-medium">{message}</p>
       )}
 
-      <p className="text-center text-sm text-gray-600">
+      <p className="text-center text-sm text-gray-600 pt-5">
         ¿No tienes cuenta?{" "}
         <button
           onClick={onSwitch}
@@ -98,6 +107,7 @@ export default function LoginForm({ onSwitch }) {
           Regístrate
         </button>
       </p>
+
     </div>
   );
 }
