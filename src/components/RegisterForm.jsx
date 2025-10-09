@@ -41,9 +41,9 @@ export default function RegisterForm({ onSwitch }) {
   const handleGoogleSuccess = async (credentialResponse) => {
     console.log(credentialResponse)
     try {
-      const decoded = jwtDecode(credentialResponse.credential)
-      console.log("Datos de Google:", decoded)
-
+console.log("Token recibido:", credentialResponse?.credential)
+const decoded = jwtDecode(credentialResponse.credential)
+console.log("Datos de Google:", decoded)
       const res = await fetch("http://localhost:8080/api/auth/google", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
