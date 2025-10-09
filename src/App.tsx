@@ -4,6 +4,7 @@ import Menu from "./components/Menu";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ResetPassword from "./components/ResetPassword";
 import NewPassword from './components/NewPassword'
+import EmailVerification from "./components/EmailVerification";
 
 export default function App({}) {
   console.log("este deploy se hizo a test");
@@ -15,6 +16,7 @@ export default function App({}) {
         <Route path="/menu" element={<Menu />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/api/auth/reset-password/:token" element={<NewPassword />} />
+        <Route path="verification-email" element={<EmailVerification/>} />
       </Routes>
     </Router>
   );
