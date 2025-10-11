@@ -10,6 +10,9 @@ export default function LoginForm({ onSwitch }) {
   const navigate = useNavigate();
   const { login } = useAuth();
 
+  //TODO unificar endpoints arrancando por aca: el resetLink de auth.controller.resetPassword viene al login y toma el valor de searchparamas
+  //useSearchParams()
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -86,16 +89,17 @@ export default function LoginForm({ onSwitch }) {
         </button>
       </form>
 
-      
-        <Link
-          to="/reset-password"
-          className="text-blue-600 text-sm font-medium hover:underline cursor-pointer"
-        >
+      <Link
+        to="/reset-password"
+        className="text-blue-600 text-sm font-medium hover:underline cursor-pointer"
+      >
         ¿Olvidaste tu contraseña?
-        </Link>
+      </Link>
 
       {message && (
-        <p className="text-center text-sm text-red-500 font-medium">{message}</p>
+        <p className="text-center text-sm text-red-500 font-medium">
+          {message}
+        </p>
       )}
 
       <p className="text-center text-sm text-gray-600 pt-5">
@@ -107,7 +111,6 @@ export default function LoginForm({ onSwitch }) {
           Regístrate
         </button>
       </p>
-
     </div>
   );
 }

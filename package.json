@@ -4,9 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "DIDACTA_ENV=production node sync-env.js && vite build",
+    "build": "cross-env DIDACTA_ENV=production node sync-env.js && vite build",
     "dev": "node sync-env.js && vite",
-    "lint": "vite lint",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
     "preview": "node sync-env.js && vite preview"
   },
   "dependencies": {
@@ -20,14 +20,16 @@
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.13",
+    "@types/node": "^24.7.1",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "@vitejs/plugin-react": "^4.0.0",
     "autoprefixer": "^10.4.21",
     "aws-sdk": "^2.1692.0",
+    "cross-env": "^10.1.0",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.13",
-    "typescript": "^5.5.0",
+    "typescript": "^5.9.3",
     "vite": "^6.3.6"
   }
 }

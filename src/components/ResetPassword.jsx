@@ -2,11 +2,11 @@ import InputField from "./InputField";
 import { useState } from "react";
 
 const ResetPassword = () => {
-  const [email, setEmail] = useState("")
-  const [message, setMessage] = useState("")
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleChange = (e) => {
-    setEmail(e.target.value)
+    setEmail(e.target.value);
   };
 
   const handleSubmit = async (e) => {
@@ -18,13 +18,13 @@ const ResetPassword = () => {
         body: JSON.stringify({ email }),
       });
 
-      const data = await res.json()
+      const data = await res.json();
 
       if (res.ok) {
-        console.log(data)
-        setMessage("✅ Revisa tu correo para restablecer la contraseña.")
+        console.log(data);
+        setMessage("✅ Revisa tu correo para restablecer la contraseña.");
       } else {
-        setMessage(`❌ ${data.message || "Error en el servidor"}`)
+        setMessage(`❌ ${data.message || "Error en el servidor"}`);
       }
     } catch (error) {
       setMessage("⚠️ Error de conexión con el servidor");
@@ -65,7 +65,7 @@ const ResetPassword = () => {
         )}
       </form>
     </section>
-  )
-}
+  );
+};
 
-export default ResetPassword
+export default ResetPassword;

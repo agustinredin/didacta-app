@@ -11,7 +11,7 @@ export default function NewPassword() {
     e.preventDefault();
     if (password !== confirm) return setMessage("Las contraseñas no coinciden");
 
-    const res = await fetch("http://localhost:8080/api/auth/new-password", {
+    const res = await fetch(import.meta.env.API_URL + "/new-password", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ token, password }),
@@ -20,6 +20,8 @@ export default function NewPassword() {
     const data = await res.json();
     setMessage(data.message);
   };
+
+  //TODO: aca en useeffect borrar token de base de datos O ver como hacer una propiedad para que se borre en mongo automaticamente segun T tiempo
 
   return (
     <div style={{ textAlign: "center", marginTop: "40px" }}>
@@ -47,6 +49,5 @@ export default function NewPassword() {
     </div>
   );
 }
-
 
 //RESETEO EXITOSO ? NAVIGATE A LOGIN
