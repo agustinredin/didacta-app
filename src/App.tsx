@@ -17,7 +17,7 @@ export default function App({}) {
         <Route path="/reset-password" element={<ResetPassword />} />
         {/* //TODO: renombrar */}
         <Route
-          path={import.meta.env.APP_URL + "/api/auth/new-password/:token"}
+          path={"/new-password/:token"}
           element={<NewPassword />}
         />
         <Route path="verification-email" element={<EmailVerification />} />
