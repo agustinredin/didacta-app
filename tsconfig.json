@@ -17,13 +17,16 @@
         "moduleResolution": "bundler",
         "resolveJsonModule": true,
         "isolatedModules": true,
-        "noEmit": false,
         "jsx": "react-jsx",
         "types": [
             "vite/client"
-        ]
+        ],
+        "rootDir": "src",
+        "outDir": "dist",
+        "noEmit": false
     },
     "include": [
-        "src"
+        "src",
+        "env.d.ts"
     ]
 }
