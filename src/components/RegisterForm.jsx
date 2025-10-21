@@ -23,14 +23,11 @@ export default function RegisterForm({ onSwitch }) {
     e.preventDefault();
 
     try {
-      const res = await fetch(
-        "http://localhost:8080/api/auth/verification-email",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        }
-      );
+      const res = await fetch("http://localhost:8080/auth/verification-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
       const data = await res.json();
       setMessage(data.message);
@@ -50,7 +47,8 @@ export default function RegisterForm({ onSwitch }) {
       console.log("Token recibido:", credentialResponse?.credential);
       const decoded = jwtDecode(credentialResponse.credential);
       console.log("Datos de Google:", decoded);
-      const res = await fetch("http://localhost:8080/api/auth/google", {
+      //falta aca
+      const res = await fetch("http://localhost:8080/auth/google", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id_token: credentialResponse.credential }),

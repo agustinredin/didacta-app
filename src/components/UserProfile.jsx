@@ -19,7 +19,7 @@ const Profile = () => {
       }
 
       try {
-        const res = await fetch("http://localhost:8080/api/auth/perfil", {
+        const res = await fetch("http://localhost:8080/auth/perfil", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

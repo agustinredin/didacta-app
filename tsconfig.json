@@ -27,6 +27,6 @@
     },
     "include": [
         "src",
-        "env.d.ts"
+        "global.d.ts"
     ]
 }

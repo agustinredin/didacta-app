@@ -1,43 +1,64 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import InputField from "./InputField";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 
 export default function LoginForm({ onSwitch }) {
-  const [formData, setFormData] = useState({ email: "", password: "" });
-  const [message, setMessage] = useState("");
-  const navigate = useNavigate();
-  const { login } = useAuth();
+  const [formData, setFormData] = useState({ email: "", password: "" })
+  const [message, setMessage] = useState("")
+  const { login } = useAuth()
+  const navigate = useNavigate()
+  const [hint, setHint] = useState(false)
+
+
 
   //TODO unificar endpoints arrancando por aca: el resetLink de auth.controller.resetPassword viene al login y toma el valor de searchparamas
   //useSearchParams()
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     try {
-      const res = await fetch("http://localhost:8080/api/auth/login", {
+      const res = await fetch("http://localhost:8080/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
-      });
+      })
 
-      const data = await res.json();
+      const data = await res.json()
       if (res.ok) {
-        login(data.name, data.token);
+        login(data.name, data.token)
         navigate("/profile");
       } else {
-        setMessage(`❌ ${data.message}`);
+        setMessage(`❌ ${data.message}`)
       }
     } catch {
-      setMessage("Error de conexión con el servidor");
+      setMessage("Error de conexión con el servidor")
     }
-  };
+  }
+
+    useEffect(() => {
+    const checkGoogleHint = async () => {
+      const email = formData.email
+      if (!email) return
+      try {
+        const res = await fetch(`http://localhost:8080/auth/google-hint?email=${encodeURIComponent(email)}`)
+        if (!res.ok) return
+        const data = await res.json()
+        setHint(data.showHint)
+      } catch {
+        setHint(false)
+      }
+    }
+
+    const timeout = setTimeout(checkGoogleHint, 400) // Se utiliza debounce para que no se actualice cada vez que se modifica el input de email. Ejecuta la funcion cada 400ms
+    return () => clearTimeout(timeout)
+  }, [formData.email])
 
   return (
     <div className="bg-white shadow-lg rounded-2xl p-8 w-96 space-y-3 border border-gray-200">
@@ -63,6 +84,12 @@ export default function LoginForm({ onSwitch }) {
             onChange={handleChange}
             placeholder="ejemplo@correo.com"
           />
+          {/* TODO: HACER UN HINT MÁS ATRACTIVO, ESTE ES SOLO DE PRUEBA */}
+          {hint && (
+        <p className="text-sm text-gray-500 mt-1">
+          Este correo está asociado a una cuenta de Google.
+        </p>
+      )}
         </div>
 
         <div>

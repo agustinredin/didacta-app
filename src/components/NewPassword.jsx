@@ -11,7 +11,7 @@ export default function NewPassword() {
     e.preventDefault();
     if (password !== confirm) return setMessage("Las contraseñas no coinciden");
 
-    const res = await fetch(import.meta.env.API_URL + "/new-password", {
+    const res = await fetch(env.VITE_API_URL + "/auth/new-password", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ token, password }),

@@ -10,7 +10,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export default defineConfig(({ mode }) => {
   console.log(mode);
 
-  var exposedVars = ["GOOGLE_CLIENT_ID"];
+  var exposedVars = ["GOOGLE_CLIENT_ID", "API_URL", "APP_URL"];
 
   //vite prefix a todas las vars
   const envPicked = pick(loadEnv(mode, process.cwd(), ""), exposedVars);

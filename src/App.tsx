@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ResetPassword from "./components/ResetPassword";
 import NewPassword from "./components/NewPassword";
 import EmailVerification from "./components/EmailVerification";
-import TestGoogleHint from './components/TestGoogleHint'
 
 export default function App({}) {
   console.log("este deploy se hizo a test");
@@ -22,7 +21,6 @@ export default function App({}) {
           element={<NewPassword />}
         />
         <Route path="verification-email" element={<EmailVerification />} />
-        <Route path="google-hint" element={<TestGoogleHint />} />
       </Routes>
     </Router>
   );

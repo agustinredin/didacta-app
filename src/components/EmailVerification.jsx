@@ -1,55 +1,63 @@
-import { useState, useRef } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useRef, useState } from "react"
+import { useNavigate, useLocation } from "react-router-dom"
+
+const LEN = 5
 
 export default function EmailVerification() {
-  const [code, setCode] = useState(["", "", "", "", ""]);
-  const [message, setMessage] = useState("");
-  const inputs = useRef([]);
-  const navigate = useNavigate();
-  const email = useLocation().state?.email;
+  const [code, setCode] = useState("")
+  const [message, setMessage] = useState("")
+  const inputRef = useRef(null)
+  const navigate = useNavigate()
+  const email = useLocation().state?.email
 
-  const handleChange = (value, i) => {
-    if (!/^\d?$/.test(value)) return;
-    const arr = [...code];
-    arr[i] = value;
-    setCode(arr);
-    if (value && i < 4) inputs.current[i + 1].focus();
-  };
+  const focus = () => inputRef.current?.focus()
+  const handleChange = (e) => {
+    const v = e.target.value.replace(/\D/g, "").slice(0, LEN)
+    setCode(v)
+  }
 
   const handleVerify = async () => {
-    const finalCode = code.join("");
-    if (finalCode.length < 5) return setMessage("Ingresá los 5 dígitos");
+    if (code.length < LEN) return setMessage("Ingresá los 5 dígitos")
+    try {
+      const res = await fetch("http://localhost:8080/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, code }),
+      })
+      const data = await res.json()
+      setMessage(data.message || "")
+      if (data.success) navigate("/menu")
+    } catch {
+      setMessage("Error de conexión con el servidor")
+    }
+  }
 
-    const res = await fetch("http://localhost:8080/api/auth/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, code: finalCode }),
-    });
-    const data = await res.json();
-
-    setMessage(data.message);
-    if (data.success) navigate("/menu");
-  };
-
-  //TODO: AGREGAR QUE SE PUEDA PEGAR UN NÚMERO DE 5 DÍGITOS Y SE COLOQUE EN TODOS LOS INPUTS. ACTUALMENTE SI PEGAS UN CÓDIGO, SE QUEDA EN EL PRIMER INPUT CON UN SOLO DÍGITO.
   return (
     <div className="max-w-sm mx-auto p-6 border rounded-lg shadow text-center">
       <h2 className="text-xl font-semibold mb-4">Verificación</h2>
-      <p className="text-gray-600 mb-6 text-sm">
-        Ingresá el código enviado a tu correo
-      </p>
+      <p className="text-gray-600 mb-6 text-sm">Ingresá el código enviado a tu correo</p>
 
-      <div className="flex justify-between mb-6">
-        {code.map((digit, i) => (
-          <input
+      <input
+        ref={inputRef}
+        type="text"
+        inputMode="numeric"
+        pattern="\d*"
+        maxLength={LEN}
+        value={code}
+        onChange={handleChange}
+        autoComplete="one-time-code"
+        className="sr-only"
+      />
+
+      {/* Cajas “tontas”. Click en cualquiera enfoca el input oculto */}
+      <div className="flex justify-between mb-6" onClick={focus}>
+        {Array.from({ length: LEN }).map((_, i) => (
+          <div
             key={i}
-            ref={(el) => (inputs.current[i] = el)}
-            type="text"
-            maxLength={1}
-            value={digit}
-            onChange={(e) => handleChange(e.target.value, i)}
-            className="w-12 h-14 text-center text-2xl font-semibold bg-gray-100 border rounded-lg"
-          />
+            className="w-12 h-14 flex items-center justify-center text-2xl font-semibold bg-gray-100 border rounded-lg cursor-text"
+          >
+            {code[i] || ""}
+          </div>
         ))}
       </div>
 
@@ -62,5 +70,5 @@ export default function EmailVerification() {
 
       {message && <p className="mt-4 text-sm text-gray-700">{message}</p>}
     </div>
-  );
+  )
 }
