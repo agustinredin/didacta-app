@@ -1,0 +1,57 @@
+@import "tw-animate-css";
+@import "./globals.css";
+
+/* INFO: las definiciones se hacen adentro de este dark gigante para no tener que poner .dark en todas y que no aplique siempre. mas sencillo asi */
+.dark {
+  --color-white: #ebeaea;
+  --color-black: #131212;
+  --color-gray: #99a1af;
+
+  /* esto es para probar en el momento */
+  #root {
+    @apply bg-black;
+  }
+
+  /* #region mono-text */
+  .mono-text-title {
+    @apply text-white;
+  }
+
+  .mono-text-subtitle {
+    @apply text-white;
+  }
+
+  .mono-text-secondary {
+    @apply text-gray;
+  }
+
+  .geist {
+    @apply text-white;
+  }
+
+  .mono-text {
+    @apply text-white;
+  }
+
+  .mono-text-help-bold {
+    @apply text-white;
+  }
+  /* #endregion mono-text */
+
+  /* #region mono-card */
+
+  /* #endregion mono-card */
+
+  /* #region mono-button */
+  .mono-button {
+    @apply hover:text-orange hover:bg-transparent hover:border-orange hover:[&_svg]:fill-orange active:bg-orange-900;
+  }
+  .mono-button-secondary {
+    @apply bg-white text-black border-white hover:text-white hover:bg-transparent hover:border-white active:bg-orange-900;
+  }
+
+  .mono-button-tertiary {
+    @apply bg-black text-white border-white hover:text-black hover:bg-white active:bg-orange-100;
+  }
+  /* #endregion mono-button */
+}

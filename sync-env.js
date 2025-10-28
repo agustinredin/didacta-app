@@ -1,4 +1,4 @@
-import { writeFileSync, readFileSync, existsSync } from "fs";
+import { writeFileSync, existsSync } from "fs";
 import { execSync } from "child_process";
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
 

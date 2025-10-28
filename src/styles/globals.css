@@ -1,0 +1,96 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@font-face {
+  font-family: "Geist Sans";
+  src: url("/Geist-Variable.ttf") format("truetype");
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+/* Geist Mono Variable */
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/GeistMono-Variable.ttf") format("truetype");
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+@theme {
+  /* === Colores base === */
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-orange: #ff6b00;
+  --color-gray-600: #4a5565;
+  --color-gray: #4a5565;
+  --color-muted: #4a5565;
+  --color-lightgray: #f8fafc;
+
+  /* === Paleta Didacta (acentos IA) === */
+  --color-orange-50: #fff8ec;
+  --color-orange-100: #fff0d3;
+  --color-orange-200: #ffdea5;
+  --color-orange-300: #ffb155;
+  --color-orange-400: #ffa132;
+  --color-orange-500: #ff840a;
+  --color-orange-600: #ff6b00;
+  --color-orange-700: #cc4d02;
+  --color-orange-800: #a13c0b;
+  --color-orange-900: #82330c;
+  --color-orange-900: #461704;
+
+  --text-md: 1rem;
+  --text-base: 1rem;
+
+  /* === Estados === */
+  --color-red-600: #dc2626;
+  --color-error: #dc2626;
+  --color-green-600: #16a34a;
+  --color-success: #16a34a;
+  --color-amber-300: #ffd230;
+  --color-warning: #16a34a;
+  --color-slate-50: #f8fafc;
+  --color-info: #f8fafc;
+
+  /* === Tipografías === */
+  --font-sans: "Geist Sans", sans-serif;
+  --font-mono: "Geist Mono", monospace;
+
+  /* === Sombra y bordes === */
+  --shadow-mono: 4px 4px 0px var(--color-black);
+  --shadow-mono-highlight: 6px 6px 0px var(--color-orange-600);
+  --radius-none: 0;
+
+  /* === Breakpoints === */
+  --breakpoint-sm: 0px;
+  --breakpoint-md: 640px;
+  --breakpoint-lg: 1024px;
+}
+
+body {
+  @apply tracking-tight font-mono;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../AuthContext";
 import InputField from "./InputField";
 
 export default function RegisterForm({ onSwitch }) {

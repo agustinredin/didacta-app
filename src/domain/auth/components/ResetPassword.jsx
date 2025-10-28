@@ -17,9 +17,9 @@ const ResetPassword = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
-
+      console.log(res)
       const data = await res.json();
-
+      console.log(data)
       if (res.ok) {
         console.log(data);
         setMessage("✅ Revisa tu correo para restablecer la contraseña.");

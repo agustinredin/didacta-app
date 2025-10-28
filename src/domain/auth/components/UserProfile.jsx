@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../AuthContext";
+import { User } from "lucide-react";
 
 const Profile = () => {
-  const [usuario, setUsuario] = useState(null)
-  const [error, setError] = useState("")
-  const {logout} = useAuth()
-  const navigate = useNavigate()
-
+  const [usuario, setUsuario] = useState(null);
+  const [error, setError] = useState("");
+  const { logout } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -23,7 +22,7 @@ const Profile = () => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
           },
         });
 
@@ -45,9 +44,9 @@ const Profile = () => {
   }, []);
 
   const handleLogout = () => {
-    logout()
-    navigate('/')
-  }
+    logout();
+    navigate("/");
+  };
 
   if (error) return <p className="text-red-500">{error}</p>;
   if (!usuario) return <p>Cargando perfil...</p>;
@@ -62,21 +61,20 @@ const Profile = () => {
           className="h-10 w-10 rounded-full object-cover"
         />
       ) : (
-        <UserCircleIcon className="h-10 w-10 text-gray-400" />
-      )}      <p>
+        <User className="h-10 w-10 text-gray-400" />
+      )}{" "}
+      <p>
         <strong>Nombre:</strong> {usuario.name}
       </p>
       <p>
         <strong>Email:</strong> {usuario.email}
       </p>
-
-       <button
+      <button
         onClick={handleLogout}
         className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
       >
         Cerrar sesión
       </button>
-
     </div>
   );
 };
