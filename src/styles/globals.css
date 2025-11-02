@@ -26,7 +26,7 @@
   --color-gray-600: #4a5565;
   --color-gray: #4a5565;
   --color-muted: #4a5565;
-  --color-lightgray: #f8fafc;
+  --color-lightgray: #F5F5F5;
 
   /* === Paleta Didacta (acentos IA) === */
   --color-orange-50: #fff8ec;
@@ -50,7 +50,7 @@
   --color-green-600: #16a34a;
   --color-success: #16a34a;
   --color-amber-300: #ffd230;
-  --color-warning: #16a34a;
+  --color-warning: #ffd230;
   --color-slate-50: #f8fafc;
   --color-info: #f8fafc;
 
@@ -71,6 +71,26 @@
 
 body {
   @apply tracking-tight font-mono;
+}
+
+.success,
+[success] {
+  color: var(--color-success);
+}
+
+.warning,
+[warning] {
+  color: var(--color-warning);
+}
+
+.error,
+[error] {
+  color: var(--color-error);
+}
+
+.info,
+[info] {
+  color: var(--color-info);
 }
 
 @keyframes fade-in {

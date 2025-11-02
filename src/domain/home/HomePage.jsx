@@ -73,14 +73,19 @@ const Profile = () => {
     //     Cerrar sesión
     //   </button>
     // </div>
-    <div className="flex justify-center">
-    <MonoCard className={"flex-row "}>
-      <div className="p-1 bg-red-400">
-        Poronga grande
-      </div>
-      <div className="p-1 bg-blue-400">
-        Poronga chica
-      </div>
+    <div className="flex justify-center items-center flex-col gap-20">
+    <MonoCard className={"p-25"}>
+      <h1>PRIMARY CARD</h1>
+    </MonoCard>
+
+    <MonoCard variant="secondary" className={"p-25"}>
+      {/* TODO: El color gray-600 y gray son muy parecidos, casi ni se distinguen para ser comentario / texto */}
+      <p className="text-gray">//COMENTARIO</p>
+      <h1>SECONDARY CARD</h1>
+    </MonoCard>
+
+    <MonoCard variant="tertiary" className={"p-25"}>
+      <h1>TERTIARY CARD</h1>
     </MonoCard>
     </div>
   );

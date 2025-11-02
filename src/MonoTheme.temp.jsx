@@ -1,7 +1,15 @@
-import { Sparkle, Star } from "lucide-react";
-import MonoButton from "./ui/mono-button";
+import { Sparkle, Star, Terminal } from "lucide-react";
+import Button from "./ui/mono-button";
+import Text from "./ui/mono-input-text";
 
 const MonoTheme = () => {
+  document.addEventListener("click", (e) => {
+    //testeo del theme
+    if (e.target) document.body.className = "dark";
+    setTimeout(() => {
+      document.body.className = "";
+    }, 5000);
+  });
   return (
     <div className="p-12 flex flex-col gap-8">
       <h1 className="mono-text-title">Convertí tus clases en conocimiento</h1>
@@ -16,16 +24,30 @@ const MonoTheme = () => {
       <h6 className="mono-text-help-bold">
         Convertí tus clases en conocimiento
       </h6>
-      <MonoButton>
+      <Button>
         <Star />
         Primario
-      </MonoButton>
-      {/*INFO: hay 2 formas de hacer lo mismo parece: className="mono-button-secondary" o variant="secondary". Siempre es mono-button[-variant] */}
-      <MonoButton variant="secondary">
+      </Button>
+      {/*INFO: hay 2 formas de hacer lo mismo parece: className="mono-button-secondary" o variant="secondary". Siempre es mono-button[-variant]. cualquiera sirve */}
+      <Button variant="secondary">
         <Sparkle />
         Secundario
-      </MonoButton>
-      <MonoButton variant="tertiary">Terciario</MonoButton>
+      </Button>
+      <Button className="mono-button-tertiary">
+        Terciario <Terminal />{" "}
+      </Button>
+      <Text placeholder="input solo" />
+      <Text type="textarea" placeholder="Input con type='textarea'" />
+      <Text topLabel="NOMBRE COMPLETO" placeholder="input con topLabel" />
+      <Text
+        placeholder="input con bottomLabel"
+        bottomLabel="Acá sugerimos que pongas tu nombre."
+      />
+      <Text
+        topLabel="NOMBRE COMPLETO"
+        placeholder="input con topLabel y bottomLabel + error"
+        errorText="EL NOMBRE NO PUEDE ESTAR VACÍO"
+      />
     </div>
   );
 };

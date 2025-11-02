@@ -4,34 +4,60 @@
 /* #region mono-text */
 
 .mono-text-title {
-  @apply font-mono font-bold text-3xl tracking-tight uppercase;
+  @apply font-mono font-bold tracking-tight uppercase;
 }
 
 .mono-text-subtitle {
-  @apply font-mono font-medium text-2xl tracking-[0.01em] uppercase;
+  @apply font-mono font-medium tracking-[0.01em] uppercase;
 }
 
 .mono-text-secondary {
-  @apply font-mono font-medium text-xl tracking-tight text-gray;
+  @apply font-mono font-medium tracking-tight text-gray;
 }
 
 .geist {
-  @apply font-sans text-md tracking-tight;
+  @apply font-sans tracking-tight;
 }
 
 .mono-text {
-  @apply font-mono font-medium text-md tracking-[-0.01em];
+  @apply font-mono font-medium tracking-[-0.01em];
 }
 
 .mono-text-help-bold {
-  @apply font-mono font-bold text-2xl tracking-tight uppercase;
+  @apply font-mono font-bold tracking-tight uppercase;
 }
 
 /* #endregion mono-text */
 
 /* #region mono-card */
 
+/* TODO: Si le ponemos un p fijo, no vamos a poder modificarlo desde className ¿Que hacemos acá? - Lo mismo con flex-col */
+@utility mono-card-animation {
+  /* info: AUNQUE APAREZCA ASÍ, FUNCIONA */
+  @apply transform-gpu -translate-x-[2px] -translate-y-[2px];
+}
+
 .mono-card {
+  @apply border-3 border-black transition-transform flex bg-white shadow-[4px_4px_0px_black];
+}
+
+.mono-card:hover {
+  @apply mono-card-animation shadow-[6px_6px_0px_black];
+}
+
+.mono-card-secondary {
+  @apply border-3 border-black bg-lightgray text-gray-600 shadow-xs hover:bg-lightgray;
+}
+
+.mono-card-tertiary {
+  @apply border-3 border-black transition-transform flex bg-white shadow-[6px_6px_0px_orange];
+}
+
+.mono-card-tertiary:hover {
+  @apply mono-card-animation shadow-[8px_8px_0px_orange];
+}
+
+/* .mono-card {
   @apply bg-white border-3 border-black shadow-[4px_4px_0px_black] transition-transform p-8 flex;
 }
 
@@ -46,6 +72,14 @@
 .mono-card-highlight:hover {
   @apply transform-gpu -translate-x-[2px] -translate-y-[2px] shadow-[8px_8px_0px_var(--orange)];
 }
+
+.mono-card-secondary {
+  @apply bg-lightgray text-gray-600 shadow-xs hover:bg-lightgray p-8
+}
+
+.mono-card-tertiary {
+  @apply 
+} */
 
 /* #endregion mono-card */
 
@@ -64,3 +98,36 @@
 }
 
 /* #endregion mono-button */
+
+/* #region mono-input */
+
+/* TODO: hover state, label state (gray=>darkgray), texto de ayuda en error en mayus */
+.mono-input {
+  @apply w-full font-mono text-md border-3 border-black bg-slate-50 text-black placeholder-gray-600 p-2 outline-none transition-all duration-75;
+}
+
+.mono-input:hover,
+.mono-input:focus,
+.mono-input:active {
+  @apply bg-orange-100;
+}
+
+.mono-input:focus,
+.mono-input:active {
+  @apply shadow-[2px_2px_0px_var(--color-orange)];
+}
+
+.mono-input:disabled {
+  @apply opacity-50 pointer-events-none cursor-not-allowed grayscale;
+}
+
+.mono-input-error {
+  @apply border-red-600;
+}
+
+.mono-input-error:focus,
+.mono-input-error:active {
+  @apply shadow-[2px_2px_0px_var(--color-error)];
+}
+
+/* #endregion mono-input */

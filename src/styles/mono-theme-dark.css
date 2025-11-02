@@ -1,7 +1,7 @@
 @import "tw-animate-css";
 @import "./globals.css";
 
-/* INFO: las definiciones se hacen adentro de este dark gigante para no tener que poner .dark en todas y que no aplique siempre. mas sencillo asi */
+/* INFO: las definiciones se hacen adentro de este dark gigante para 1  no tener que poner .dark en todas y 2 que si no pones .dark no aplique siempre. muchisimo mas sencillo asi */
 .dark {
   --color-white: #ebeaea;
   --color-black: #131212;
@@ -54,4 +54,30 @@
     @apply bg-black text-white border-white hover:text-black hover:bg-white active:bg-orange-100;
   }
   /* #endregion mono-button */
+
+  /* #region mono-input */
+  .mono-input {
+    @apply bg-black text-white border-white placeholder-gray-400;
+  }
+
+  .mono-input:hover,
+  .mono-input:focus,
+  .mono-input:active {
+    @apply bg-orange-900;
+  }
+
+  .mono-input:focus,
+  .mono-input:active {
+    @apply shadow-[2px_2px_0px_var(--color-orange-600)];
+  }
+
+  .mono-input-error {
+    @apply border-red-600;
+  }
+
+  .mono-input-error:focus,
+  .mono-input-error:active {
+    @apply shadow-[2px_2px_0px_var(--color-error)];
+  }
+  /* #endregion mono-input */
 }
