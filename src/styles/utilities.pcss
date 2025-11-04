@@ -1,0 +1,68 @@
+@layer utilities {
+  $theme-colors: white, black, orange, gray, muted, lightgray, error, success,
+    info;
+  $mix-steps: 10, 20, 30, 40, 50, 60, 70, 80, 90;
+
+  /* === DYNAMIC COLOR GEN === */
+  @each $name in $theme-colors {
+    .bg-$(name) {
+      background-color: var(--color-$(name));
+    }
+    .text-$(name) {
+      color: var(--color-$(name));
+    }
+    .stroke-$(name) {
+      stroke: var(--color-$(name));
+    }
+    .fill-$(name) {
+      fill: var(--color-$(name));
+    }
+    .border-$(name) {
+      border-color: var(--color-$(name));
+    }
+  }
+
+  @each $i in $mix-steps {
+    /* DARKEN */
+    .bg-darken-$(i) {
+      background-color: color-mix(
+        in oklab,
+        currentColor calc(100% - $(i)%),
+        black
+      );
+    }
+    .text-darken-$(i) {
+      color: color-mix(in oklab, currentColor calc(100% - $(i)%), black);
+    }
+    .stroke-darken-$(i) {
+      stroke: color-mix(in oklab, currentColor calc(100% - $(i)%), black);
+    }
+    .fill-darken-$(i) {
+      fill: color-mix(in oklab, currentColor calc(100% - $(i)%), black);
+    }
+    .border-darken-$(i) {
+        border-color: color-mix(in oklab, currentColor calc(100% - $(i)%), black);
+    }
+
+    /* LIGHTEN */
+    .bg-lighten-$(i) {
+      background-color: color-mix(
+        in oklab,
+        currentColor calc(100% - $(i)%),
+        white
+      );
+    }
+    .text-lighten-$(i) {
+      color: color-mix(in oklab, currentColor calc(100% - $(i)%), white);
+    }
+    .stroke-lighten-$(i) {
+      stroke: color-mix(in oklab, currentColor calc(100% - $(i)%), white);
+    }
+    .fill-lighten-$(i) {
+      fill: color-mix(in oklab, currentColor calc(100% - $(i)%), white);
+    }
+    .border-lighten-$(i) {
+        border-color: color-mix(in oklab, currentColor calc(100% - $(i)%), white);
+    }
+  }
+}

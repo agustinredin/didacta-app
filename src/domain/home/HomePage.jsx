@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@domain/auth/AuthContext";
-import MonoCard from "@/ui/mono-card";
+
+//INFO: atento. apliqué un barrel import a la ui con index.js. ANTES:
+// import MonoCard from "@/ui/mono-card";
+//AHORA:
+import * as Mono from "@ui";
+
 // import { User } from "lucide-react";
 
 //TODO: entry point real de la aplicación
@@ -74,19 +79,19 @@ const Profile = () => {
     //   </button>
     // </div>
     <div className="flex justify-center items-center flex-col gap-20">
-    <MonoCard className={"p-25"}>
-      <h1>PRIMARY CARD</h1>
-    </MonoCard>
+      <Mono.Card className={"p-25"}>
+        <h1>PRIMARY CARD</h1>
+      </Mono.Card>
 
-    <MonoCard variant="secondary" className={"p-25"}>
-      {/* TODO: El color gray-600 y gray son muy parecidos, casi ni se distinguen para ser comentario / texto */}
-      <p className="text-gray">//COMENTARIO</p>
-      <h1>SECONDARY CARD</h1>
-    </MonoCard>
+      <Mono.Card variant="secondary" className={"p-25"}>
+        {/* TODO: El color gray-600 y gray son muy parecidos, casi ni se distinguen para ser comentario / texto */}
+        <p className="text-gray">//COMENTARIO</p>
+        <h1>SECONDARY CARD</h1>
+      </Mono.Card>
 
-    <MonoCard variant="tertiary" className={"p-25"}>
-      <h1>TERTIARY CARD</h1>
-    </MonoCard>
+      <Mono.Card variant="tertiary" className={"p-25"}>
+        <h1>TERTIARY CARD</h1>
+      </Mono.Card>
     </div>
   );
 };

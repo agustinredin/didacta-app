@@ -20,13 +20,19 @@
 
 @theme {
   /* === Colores base === */
+  --white: #ffffff;
   --color-white: #ffffff;
+  --black: #000000;
   --color-black: #000000;
+  --orange: #ff6b00;
   --color-orange: #ff6b00;
   --color-gray-600: #4a5565;
+  --gray: #4a5565;
   --color-gray: #4a5565;
+  --muted: #4a5565;
   --color-muted: #4a5565;
-  --color-lightgray: #F5F5F5;
+  --lightgray: #f5f5f5;
+  --color-lightgray: #f5f5f5;
 
   /* === Paleta Didacta (acentos IA) === */
   --color-orange-50: #fff8ec;
@@ -49,8 +55,6 @@
   --color-error: #dc2626;
   --color-green-600: #16a34a;
   --color-success: #16a34a;
-  --color-amber-300: #ffd230;
-  --color-warning: #ffd230;
   --color-slate-50: #f8fafc;
   --color-info: #f8fafc;
 
@@ -76,11 +80,6 @@ body {
 .success,
 [success] {
   color: var(--color-success);
-}
-
-.warning,
-[warning] {
-  color: var(--color-warning);
 }
 
 .error,
@@ -114,3 +113,15 @@ body {
     opacity: 1;
   }
 }
+
+@keyframes slide-up {
+    0% { transform: translateY(1rem); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+.animate-slide-up {
+animation: slide-up 0.4s ease-out forwards;
+}
+
+@import "./mono-theme.css";
+@import "./mono-theme-dark.css";
+@import "./utilities.pcss";

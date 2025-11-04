@@ -1,42 +1,17 @@
 @import "tw-animate-css";
-@import "./globals.css";
 
 /* INFO: las definiciones se hacen adentro de este dark gigante para 1  no tener que poner .dark en todas y 2 que si no pones .dark no aplique siempre. muchisimo mas sencillo asi */
 .dark {
+  --white: #ebeaea;
   --color-white: #ebeaea;
+  --black: #131212;
   --color-black: #131212;
-  --color-gray: #99a1af;
+  --gray: #838b99;
+  --color-gray: #838b99;
 
-  /* esto es para probar en el momento */
   #root {
-    @apply bg-black;
+    @apply bg-black text-white;
   }
-
-  /* #region mono-text */
-  .mono-text-title {
-    @apply text-white;
-  }
-
-  .mono-text-subtitle {
-    @apply text-white;
-  }
-
-  .mono-text-secondary {
-    @apply text-gray;
-  }
-
-  .geist {
-    @apply text-white;
-  }
-
-  .mono-text {
-    @apply text-white;
-  }
-
-  .mono-text-help-bold {
-    @apply text-white;
-  }
-  /* #endregion mono-text */
 
   /* #region mono-card */
 

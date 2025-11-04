@@ -1,5 +1,4 @@
 @import "tw-animate-css";
-@import "./globals.css";
 
 /* #region mono-text */
 
@@ -31,14 +30,17 @@
 
 /* #region mono-card */
 
-/* TODO: Si le ponemos un p fijo, no vamos a poder modificarlo desde className ¿Que hacemos acá? - Lo mismo con flex-col */
+/* INFO: padding 0 y sin flex-col */
 @utility mono-card-animation {
   /* info: AUNQUE APAREZCA ASÍ, FUNCIONA */
   @apply transform-gpu -translate-x-[2px] -translate-y-[2px];
 }
 
-.mono-card {
+@utility mono-card {
   @apply border-3 border-black transition-transform flex bg-white shadow-[4px_4px_0px_black];
+}
+
+.mono-card {
 }
 
 .mono-card:hover {
@@ -50,11 +52,11 @@
 }
 
 .mono-card-tertiary {
-  @apply border-3 border-black transition-transform flex bg-white shadow-[6px_6px_0px_orange];
+  @apply border-3 border-black transition-transform flex bg-white shadow-[6px_6px_0_var(--orange)];
 }
 
 .mono-card-tertiary:hover {
-  @apply mono-card-animation shadow-[8px_8px_0px_orange];
+  @apply mono-card-animation shadow-[6px_6px_0_var(--orange)];
 }
 
 /* .mono-card {
@@ -86,15 +88,15 @@
 /* #region mono-button */
 
 .mono-button {
-  @apply cursor-pointer font-mono font-medium tracking-widest uppercase border-3 border-orange bg-orange text-white p-2 w-fit transition-all duration-75 inline-flex items-center justify-center gap-2 whitespace-nowrap [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none has-[>svg]:px-4 hover:text-black hover:bg-white hover:border-black active:-translate-y-[2px] active:[&_svg]:fill-orange active:bg-orange-100 disabled:opacity-25 disabled:pointer-events-none disabled:cursor-not-allowed disabled:grayscale;
+  @apply cursor-pointer font-mono font-medium border-2 border-orange bg-orange text-white w-fit transition-all duration-75 inline-flex items-center justify-center gap-2 whitespace-nowrap [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none has-[>svg]:px-4 hover:text-black hover:bg-white hover:border-black active:-translate-y-[2px] active:[&_svg]:fill-orange active:bg-orange-100 disabled:opacity-25 disabled:pointer-events-none disabled:cursor-not-allowed disabled:grayscale;
 }
 
 .mono-button-secondary {
-  @apply cursor-pointer font-mono font-medium tracking-widest uppercase border-3 border-black bg-black text-white p-2 w-fit transition-all duration-75 inline-flex items-center justify-center gap-2 whitespace-nowrap [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none has-[>svg]:px-4 hover:text-black hover:bg-white active:-translate-y-[2px] active:[&_svg]:fill-orange active:bg-orange-100 disabled:opacity-25 disabled:pointer-events-none disabled:cursor-not-allowed disabled:grayscale;
+  @apply cursor-pointer font-mono font-medium  border-2 border-black bg-black text-white w-fit transition-all duration-75 inline-flex items-center justify-center gap-2 whitespace-nowrap [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none has-[>svg]:px-4 hover:text-black hover:bg-white active:-translate-y-[2px] active:[&_svg]:fill-orange active:bg-orange-100 disabled:opacity-25 disabled:pointer-events-none disabled:cursor-not-allowed disabled:grayscale;
 }
 
 .mono-button-tertiary {
-  @apply cursor-pointer font-mono font-medium tracking-widest uppercase border-3 border-black bg-white text-black p-2 w-fit transition-all duration-75 inline-flex items-center justify-center gap-2 whitespace-nowrap [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none has-[>svg]:px-4 hover:text-white hover:bg-black active:-translate-y-[2px] active:[&_svg]:fill-orange active:bg-orange-100 active:text-black disabled:opacity-25 disabled:pointer-events-none disabled:cursor-not-allowed disabled:grayscale;
+  @apply cursor-pointer font-mono font-medium border-2 border-black bg-white text-black w-fit transition-all duration-75 inline-flex items-center justify-center gap-2 whitespace-nowrap [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none has-[>svg]:px-4 hover:text-white hover:bg-black active:-translate-y-[2px] active:[&_svg]:fill-orange active:bg-orange-100 active:text-black disabled:opacity-25 disabled:pointer-events-none disabled:cursor-not-allowed disabled:grayscale;
 }
 
 /* #endregion mono-button */
@@ -131,3 +133,19 @@
 }
 
 /* #endregion mono-input */
+
+/* #region mono-toast */
+
+.mono-toast-wrapper {
+  @apply flex justify-center fixed w-full bottom-4;
+}
+
+.mono-toast-container {
+  @apply mx-auto my-4 duration-500  transition-all ease-in-out flex items-center justify-center transform;
+}
+
+.mono-toast {
+  @apply flex gap-3 border-2 py-2 px-4 transition-all duration-500;
+}
+
+/* #endregion mono-toast */

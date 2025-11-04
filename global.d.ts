@@ -4,13 +4,11 @@ declare global {
   namespace JSX {
     interface IntrinsicAttributes {
       success?: boolean | string;
-      warning?: boolean | string;
       error?: boolean | string;
       info?: boolean | string;
     }
     interface IntrinsicElements {
       success?: boolean | string;
-      warning?: boolean | string;
       error?: boolean | string;
       info?: boolean | string;
     }
@@ -25,10 +23,14 @@ declare global {
   }>;
 }
 
+declare module "*.jsx" {
+  const Component: any;
+  export default Component;
+}
+
 declare module "react" {
   interface HTMLAttributes<T> {
     success?: boolean | string;
-    warning?: boolean | string;
     error?: boolean | string;
     info?: boolean | string;
   }
