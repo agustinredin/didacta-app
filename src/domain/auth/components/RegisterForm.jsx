@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { GoogleLogin } from "@react-oauth/google";
+import Google from "./Google";
 import { useNavigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
 import { useAuth } from "../AuthContext";
-import InputField from "./InputField";
+import * as Mono from "@ui";
 
 export default function RegisterForm({ onSwitch }) {
+  // TODO: REFACTORIZAR LOGICA, EMPEZAR POR UNIFICAR FORMDATA EN UN SOLO ARCHIVO
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -32,7 +32,7 @@ export default function RegisterForm({ onSwitch }) {
       const data = await res.json();
       setMessage(data.message);
 
-      //AGREGAR MENSAJE DE QUE SE ENVIÓ UN CORREO DE VERIFICACIÓN A SU CASILLA
+      // TODO: AGREGAR MENSAJE DE QUE SE ENVIÓ UN CORREO DE VERIFICACIÓN A SU CASILLA
       if (data.success) {
         navigate("/verification-email", { state: { email: formData.email } });
       }
@@ -41,85 +41,83 @@ export default function RegisterForm({ onSwitch }) {
     }
   };
 
-  const handleGoogleSuccess = async (credentialResponse) => {
-    console.log(credentialResponse);
-    try {
-      console.log("Token recibido:", credentialResponse?.credential);
-      const decoded = jwtDecode(credentialResponse.credential);
-      console.log("Datos de Google:", decoded);
-      //falta aca
-      const res = await fetch("http://localhost:8080/auth/google", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id_token: credentialResponse.credential }),
-      });
-      console.log(res);
-      const data = await res.json();
-      if (!res.ok) {
-        setError(data.message || "Error en login con Google");
-        return;
-      }
-      console.log(data);
-
-      localStorage.setItem("token", data.token);
-      navigate("/profile");
-    } catch (err) {
-      console.error(err);
-      setError("Error en la autenticación con Google");
-    }
-  };
-
   return (
-    <div className="bg-white shadow-lg rounded-2xl p-8 w-96 space-y-6 border border-gray-200">
-      <h2 className="text-xl font-bold text-center">Registro</h2>
+    <Mono.Card
+      variant={"tertiary"}
+      className="flex-col items-center p-10 space-y-3 min-w-115"
+    >
+      <img src="/Logo.png" className="w-28" alt="" />
+      <h2 className="mono-text-title text-orange text-lg pb-2">
+        Crea tu cuenta
+      </h2>
 
-      <form onSubmit={handleSubmit} className="space-y-3">
-        <InputField
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          placeholder="Nombre"
-        />
-        <InputField
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          placeholder="Email"
-        />
-        <InputField
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          placeholder="Contraseña"
-        />
-        <button
+      <form onSubmit={handleSubmit} className="space-y-5 w-full ">
+        <div className="flex flex-col gap-6">
+          <label
+            htmlFor="email"
+            className="block text-left text-sm mono-text-secondary text-gray-800"
+          >
+            Nombre y apellido
+            <Mono.InputText
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+            />
+          </label>
+        </div>
+
+        <div>
+          <label
+            htmlFor="email"
+            className="block text-left text-sm mono-text-secondary text-gray-800 mb-1"
+          >
+            Correo electrónico
+          </label>
+          <Mono.InputText
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="email"
+            className="block text-left text-sm mono-text-secondary text-gray-800 mb-1"
+          >
+            Contraseña
+          </label>
+          <Mono.InputText
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+        </div>
+        <Mono.Button
           type="submit"
-          className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 cursor-pointer"
+          className="mono-text-subtitle min-w-full  py-1"
         >
           Registrarse
-        </button>
+        </Mono.Button>
       </form>
 
-      <div className="flex justify-center">
-        <GoogleLogin
-          onSuccess={handleGoogleSuccess}
-          onError={() => setError("Error en Google Login")}
-        />
+      <div className="flex w-full justify-center pb-4 pt-2">
+        <Google />
       </div>
 
       {message && <p className="text-center text-sm">{message}</p>}
-      <p className="text-center text-sm text-gray-600">
+      <p className="text-center text-sm text-gray-800 border-t pt-4">
         ¿Ya tienes cuenta?{" "}
         <button
           onClick={onSwitch}
-          className="text-blue-600 font-medium hover:underline cursor-pointer"
+          className="mono-text-tertiary text-orange text-sm hover:underline cursor-pointer"
         >
           Inicia sesión
         </button>
       </p>
-    </div>
+    </Mono.Card>
   );
 }

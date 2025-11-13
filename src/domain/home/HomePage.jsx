@@ -78,21 +78,7 @@ const Profile = () => {
     //     Cerrar sesión
     //   </button>
     // </div>
-    <div className="flex justify-center items-center flex-col gap-20">
-      <Mono.Card className={"p-25"}>
-        <h1>PRIMARY CARD</h1>
-      </Mono.Card>
-
-      <Mono.Card variant="secondary" className={"p-25"}>
-        {/* TODO: El color gray-600 y gray son muy parecidos, casi ni se distinguen para ser comentario / texto */}
-        <p className="text-gray">//COMENTARIO</p>
-        <h1>SECONDARY CARD</h1>
-      </Mono.Card>
-
-      <Mono.Card variant="tertiary" className={"p-25"}>
-        <h1>TERTIARY CARD</h1>
-      </Mono.Card>
-    </div>
+    <></>
   );
 };
 

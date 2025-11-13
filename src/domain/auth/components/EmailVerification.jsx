@@ -1,76 +1,108 @@
 import { useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import * as Mono from "@ui";
 
 const LEN = 5;
 
 export default function EmailVerification() {
-  const [code, setCode] = useState("");
+  const [digits, setDigits] = useState(Array(LEN).fill(""));
+  const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const inputRef = useRef(null);
+
+  const inputsRef = useRef([]);
   const navigate = useNavigate();
   const email = useLocation().state?.email;
 
-  const focus = () => inputRef.current?.focus();
-  const handleChange = (e) => {
-    const v = e.target.value.replace(/\D/g, "").slice(0, LEN);
-    setCode(v);
+  const distributePaste = (text) => {
+    const clean = text.replace(/\D/g, "").slice(0, LEN).split("");
+    if (clean.length === 0) return;
+
+    const next = Array(LEN).fill("");
+    for (let i = 0; i < clean.length; i++) next[i] = clean[i];
+    setDigits(next);
+
+    const last = clean.length - 1;
+    inputsRef.current[last]?.focus();
   };
 
+  const setDigit = (index, val) => {
+    const v = val.replace(/\D/g, "").slice(0, 1);
+    const next = [...digits];
+    next[index] = v;
+    setDigits(next);
+
+    if (v && index < LEN - 1) inputsRef.current[index + 1]?.focus();
+    if (!v && index > 0) inputsRef.current[index - 1]?.focus();
+  };
+
+  const code = digits.join("");
+
   const handleVerify = async () => {
-    if (code.length < LEN) return setMessage("Ingresá los 5 dígitos");
+    if (code.length < LEN) {
+      setMessage("Ingresá los 5 dígitos");
+      return;
+    }
+
+    setLoading(true);
+    setMessage("");
+
     try {
-      const res = await fetch("http://localhost:8080/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, code }),
+      const res = await apiClient.post("/auth/register", {
+        email,
+        code,
       });
+      console.log(res);
       const data = await res.json();
       setMessage(data.message || "");
       if (data.success) navigate("/menu");
     } catch {
       setMessage("Error de conexión con el servidor");
     }
+
+    setLoading(false);
   };
 
   return (
-    <div className="max-w-sm mx-auto p-6 border rounded-lg shadow text-center">
-      <h2 className="text-xl font-semibold mb-4">Verificación</h2>
-      <p className="text-gray-600 mb-6 text-sm">
-        Ingresá el código enviado a tu correo
-      </p>
+    <Mono.Card className="flex flex-col items-center max-w-sm p-5 pb-10">
+      <div className="flex flex-col items-center max-w-xs pb-5">
+        <img src="/Logo.png" className="w-28" alt="" />
+        <p className="mono-text-tertiary text-gray text-sm text-center">
+          Ingresá el código de 5 digitos que enviamos a{" "}
+          <span className="font-extrabold">{`${email}`}</span>
+        </p>
+      </div>
 
-      <input
-        ref={inputRef}
-        type="text"
-        inputMode="numeric"
-        pattern="\d*"
-        maxLength={LEN}
-        value={code}
-        onChange={handleChange}
-        autoComplete="one-time-code"
-        className="sr-only"
-      />
-
-      {/* Cajas “tontas”. Click en cualquiera enfoca el input oculto */}
-      <div className="flex justify-between mb-6" onClick={focus}>
-        {Array.from({ length: LEN }).map((_, i) => (
-          <div
+      <div className="flex justify-between gap-2 mb-6">
+        {digits.map((d, i) => (
+          <Mono.InputText
             key={i}
-            className="w-12 h-14 flex items-center justify-center text-2xl font-semibold bg-gray-100 border rounded-lg cursor-text"
-          >
-            {code[i] || ""}
-          </div>
+            ref={(el) => (inputsRef.current[i] = el)}
+            value={d}
+            inputMode="numeric"
+            maxLength={1}
+            onChange={(e) => setDigit(i, e.target.value)}
+            onPaste={(e) => {
+              e.preventDefault();
+              distributePaste(e.clipboardData.getData("text"));
+            }}
+            className="w-12 h-14 text-center text-2xl font-semibold"
+          />
         ))}
       </div>
 
-      <button
+      <Mono.Button
         onClick={handleVerify}
-        className="bg-blue-600 text-white px-4 py-2 rounded w-full hover:bg-blue-700"
+        disabled={loading}
+        className="min-w-full py-2 flex items-center justify-center"
       >
-        Verificar
-      </button>
+        {loading ? (
+          <span className="animate-spin border-2 border-white border-t-transparent rounded-full w-5 h-5" />
+        ) : (
+          "Verificar"
+        )}
+      </Mono.Button>
 
-      {message && <p className="mt-4 text-sm text-gray-700">{message}</p>}
-    </div>
+      {message && <p className="mt-4 text-sm">{message}</p>}
+    </Mono.Card>
   );
 }

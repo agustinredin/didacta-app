@@ -1,7 +1,10 @@
 import axios from "axios";
 
 //TODO: testear y modificar segun token, cookie http, etc. paso 0
-const API_URL = import.meta.env.VITE_API_URL || "https://api.didacta-ai.com";
+//INFO: Funciona register y login. Actualmente hay un BUG con google, a continuación dejo el error:
+// client:347 Cross-Origin-Opener-Policy policy would block the window.postMessage call.
+// Al parecer se trata de un error en el helmet configurado. Por ahora no logré solucionarlo
+const API_URL = env.VITE_API_URL || "https://localhost:8080/auth";
 export const apiClient = axios.create({
   baseURL: API_URL,
 });
@@ -28,26 +31,3 @@ apiClient.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-// Import it and call its HTTP methods directly.
-// Example usage:
-
-// import { apiClient } from "@/core/apiClient";
-
-// // GET
-// const fetchUser = async (id) => {
-//   const res = await apiClient.get(`/users/${id}`);
-//   return res.data;
-// };
-
-// // POST
-// const loginUser = async (email, password) => {
-//   const res = await apiClient.post("/auth/login", { email, password });
-//   return res.data;
-// };
-
-// // PUT / PATCH
-// await apiClient.put(`/users/${id}`, { name: "New Name" });
-
-// // DELETE
-// await apiClient.delete(`/users/${id}`)

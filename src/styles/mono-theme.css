@@ -14,6 +14,10 @@
   @apply font-mono font-medium tracking-tight text-gray;
 }
 
+.mono-text-tertiary{
+  @apply font-mono font-semibold tracking-[0.01em]
+}
+
 .geist {
   @apply font-sans tracking-tight;
 }
@@ -36,11 +40,8 @@
   @apply transform-gpu -translate-x-[2px] -translate-y-[2px];
 }
 
-@utility mono-card {
-  @apply border-3 border-black transition-transform flex bg-white shadow-[4px_4px_0px_black];
-}
-
 .mono-card {
+  @apply border-3 border-black transition-transform flex bg-white shadow-[4px_4px_0px_black];
 }
 
 .mono-card:hover {
@@ -105,7 +106,7 @@
 
 /* TODO: hover state, label state (gray=>darkgray), texto de ayuda en error en mayus */
 .mono-input {
-  @apply w-full font-mono text-md border-3 border-black bg-slate-50 text-black placeholder-gray-600 p-2 outline-none transition-all duration-75;
+  @apply w-full font-mono text-md border-2 border-black bg-slate-50 text-black placeholder-gray-600 p-2 outline-none transition-all duration-75;
 }
 
 .mono-input:hover,
@@ -141,11 +142,11 @@
 }
 
 .mono-toast-container {
-  @apply mx-auto my-4 duration-500  transition-all ease-in-out flex items-center justify-center transform;
+  @apply mx-auto my-4 duration-200 transition-all ease-out flex items-center justify-center transform;
 }
 
 .mono-toast {
-  @apply flex gap-3 border-2 py-2 px-4 transition-all duration-500;
+  @apply flex gap-3 border-2 py-2 px-4 transition-all duration-200;
 }
 
 /* #endregion mono-toast */

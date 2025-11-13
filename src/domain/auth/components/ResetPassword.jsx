@@ -1,5 +1,5 @@
-import InputField from "./InputField";
 import { useState } from "react";
+import * as Mono from "@ui";
 
 const ResetPassword = () => {
   const [email, setEmail] = useState("");
@@ -17,9 +17,9 @@ const ResetPassword = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
-      console.log(res)
+      console.log(res);
       const data = await res.json();
-      console.log(data)
+      console.log(data);
       if (res.ok) {
         console.log(data);
         setMessage("✅ Revisa tu correo para restablecer la contraseña.");
@@ -32,38 +32,44 @@ const ResetPassword = () => {
   };
 
   return (
-    <section className="w-screen h-screen flex justify-center items-center">
-      <form
-        onSubmit={handleSubmit}
-        className="w-80 p-6 bg-white rounded shadow-md"
-      >
-        <div>
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-600 mb-1"
+    <section className="w-screen h-screen flex flex-col justify-center items-center">
+      {/* TODO: Decidir si este div va dentro o fuera de la card. Se aceptan sugerencias aparte de la mencionada. */}
+      <div className="flex flex-col items-center max-w-xs pb-8">
+        <img src="/Logo.png" className="w-28" alt="" />
+        <p className="mono-text-tertiary text-gray text-xs text-center">
+          Ingrese su correo electrónico y le enviaremos un link de
+          restablecimiento
+        </p>
+      </div>
+      <Mono.Card className={"flex flex-col items-center p-9"}>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-sm mono-text-tertiary text-gray mb-1"
+            >
+              Correo electrónico
+            </label>
+            <Mono.InputText
+              type="email"
+              name="email"
+              value={email}
+              onChange={handleChange}
+            />
+          </div>
+
+          <Mono.Button
+            type="submit"
+            className="min-w-full mono-text-tertiary text-md px-3  py-1"
           >
-            Correo electrónico
-          </label>
-          <InputField
-            type="email"
-            name="email"
-            value={email}
-            onChange={handleChange}
-            placeholder="ejemplo@correo.com"
-          />
-        </div>
+            Enviar restablecimiento
+          </Mono.Button>
 
-        <button
-          type="submit"
-          className="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
-        >
-          Restablecer contraseña
-        </button>
-
-        {message && (
-          <p className="mt-3 text-sm text-center text-gray-700">{message}</p>
-        )}
-      </form>
+          {message && (
+            <p className="mt-3 text-sm text-center text-gray-700">{message}</p>
+          )}
+        </form>
+      </Mono.Card>
     </section>
   );
 };

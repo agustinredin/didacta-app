@@ -114,14 +114,6 @@ body {
   }
 }
 
-@keyframes slide-up {
-    0% { transform: translateY(1rem); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
-}
-.animate-slide-up {
-animation: slide-up 0.4s ease-out forwards;
-}
-
 @import "./mono-theme.css";
 @import "./mono-theme-dark.css";
-@import "./utilities.pcss";
+@import "./utilities.css";

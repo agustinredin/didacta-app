@@ -41,7 +41,11 @@
       fill: color-mix(in oklab, currentColor calc(100% - $(i)%), black);
     }
     .border-darken-$(i) {
-        border-color: color-mix(in oklab, currentColor calc(100% - $(i)%), black);
+      border-color: color-mix(
+        in oklab,
+        currentColor calc(100% - $(i)%),
+        black
+      );
     }
 
     /* LIGHTEN */
@@ -62,7 +66,11 @@
       fill: color-mix(in oklab, currentColor calc(100% - $(i)%), white);
     }
     .border-lighten-$(i) {
-        border-color: color-mix(in oklab, currentColor calc(100% - $(i)%), white);
+      border-color: color-mix(
+        in oklab,
+        currentColor calc(100% - $(i)%),
+        white
+      );
     }
   }
 }

@@ -21,7 +21,6 @@ export default function NewPassword() {
     setMessage(data.message);
   };
 
-  //TODO: aca en useeffect borrar token de base de datos O ver como hacer una propiedad para que se borre en mongo automaticamente segun T tiempo
 
   return (
     <div style={{ textAlign: "center", marginTop: "40px" }}>

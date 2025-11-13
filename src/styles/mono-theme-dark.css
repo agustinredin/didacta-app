@@ -15,12 +15,34 @@
 
   /* #region mono-card */
 
+  .mono-card {
+    @apply border-3 border-white transition-transform flex bg-black shadow-[4px_4px_0px_white];
+  }
+
+
+  .mono-card:hover {
+    @apply mono-card-animation shadow-[6px_6px_0px_white];
+  }
+
+  .mono-card-secondary {
+    @apply border-3 border-white bg-gray text-lightgray shadow-xs hover:bg-gray;
+  }
+
+  .mono-card-tertiary {
+    @apply border-3 border-white transition-transform flex bg-black shadow-[6px_6px_0_var(--orange)] text-white;
+  }
+
+  .mono-card-tertiary:hover {
+    @apply mono-card-animation shadow-[6px_6px_0_var(--orange)];
+  }
+
   /* #endregion mono-card */
 
   /* #region mono-button */
   .mono-button {
     @apply hover:text-orange hover:bg-transparent hover:border-orange hover:[&_svg]:fill-orange active:bg-orange-900;
   }
+
   .mono-button-secondary {
     @apply bg-white text-black border-white hover:text-white hover:bg-transparent hover:border-white active:bg-orange-900;
   }
@@ -28,6 +50,7 @@
   .mono-button-tertiary {
     @apply bg-black text-white border-white hover:text-black hover:bg-white active:bg-orange-100;
   }
+
   /* #endregion mono-button */
 
   /* #region mono-input */
@@ -54,5 +77,6 @@
   .mono-input-error:active {
     @apply shadow-[2px_2px_0px_var(--color-error)];
   }
+
   /* #endregion mono-input */
 }

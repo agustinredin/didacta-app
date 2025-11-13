@@ -4,9 +4,7 @@ import { memo } from "react";
 export const MonoCard = memo(({ variant = "", ...props }) => {
   const _default = `mono-card${variant && `-${variant}`}`;
   const _cn = props["className"];
-  return (
-    props.children && <button {...props} className={cn(_default, _cn)}></button>
-  );
+  return props.children && <div {...props} className={cn(_default, _cn)}></div>;
 });
 
 // TODO: CONTINUAR ACÁ U

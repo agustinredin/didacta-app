@@ -40,7 +40,7 @@ export default function AuthPage() {
   //   const [isForgotPassword, setIsForgotPassword] = useState(false);
   //   const [isRegister, ] = useState(false)
   // ...se entiende. Te volvés loco
-  //
+  // ENTENDIDO
   //
   // return (
   //   <div className="h-screen flex items-center justify-center bg-gray-100">

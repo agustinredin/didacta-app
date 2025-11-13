@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
-import InputField from "./InputField";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
 import { Link } from "react-router-dom";
+import * as Mono from "@ui";
+import Google from "./Google";
+import { signInWithGoogle } from "../auth";
+import { apiClient } from "@/core/api";
 
 export default function LoginForm({ onSwitch }) {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -63,28 +66,31 @@ export default function LoginForm({ onSwitch }) {
   }, [formData.email]);
 
   return (
-    <div className="bg-white shadow-lg rounded-2xl p-8 w-96 space-y-3 border border-gray-200">
-      <h2 className="text-2xl font-semibold text-center text-gray-800">
-        Bienvenido de nuevo
-      </h2>
-      <p className="text-center text-sm font-semibold text-orange-500">
-        DIDACTA.AI
-      </p>
+    <Mono.Card className="flex-col bg-white shadow-lg p-10 space-y-4 min-w-115">
+      <div className="flex items-center flex-col">
+        <img src="/Logo.png" className="w-28" alt="" />
+        <h2 className="text-2xl font-semibold text-center text-gray-800">
+          {/* Bienvenido de nuevo */}
+        </h2>
+        <h2 className="mono-text-title text-center text-lg font-semibold text-orange-500 pb-2">
+          Bienvenido de nuevo
+        </h2>
+      </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-5">
         <div>
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-gray-600 mb-1"
+            className="block text-left text-sm mono-text-secondary text-gray-800 mb-1"
           >
             Correo electrónico
           </label>
-          <InputField
+          <Mono.InputText
             type="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
-            placeholder="ejemplo@correo.com"
+            className={""}
           />
           {/* TODO: HACER UN HINT MÁS ATRACTIVO, ESTE ES SOLO DE PRUEBA */}
           {hint && (
@@ -95,35 +101,42 @@ export default function LoginForm({ onSwitch }) {
         </div>
 
         <div>
-          <label
-            htmlFor="password"
-            className="block text-sm font-medium text-gray-600 mb-1"
-          >
-            Contraseña
-          </label>
-          <InputField
+          <div className="flex items-center space-x-40">
+            <label
+              htmlFor="password"
+              className="block text-left text-sm mono-text-secondary text-gray-800 mb-1"
+            >
+              Contraseña
+            </label>
+            <Link
+              to="/reset-password"
+              className="mono-text-tertiary text-orange text-xs hover:underline cursor-pointer"
+            >
+              Olvidé mi contraseña
+            </Link>
+          </div>
+
+          <Mono.InputText
             type="password"
             name="password"
             value={formData.password}
             onChange={handleChange}
-            placeholder="••••••••"
           />
         </div>
 
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white py-2.5 rounded-lg font-medium hover:bg-blue-700 transition-all cursor-pointer"
-        >
-          Ingresar
-        </button>
-      </form>
+        <div className="w-full flex justify-center">
+          <Mono.Button
+            type="submit"
+            className="mono-text-subtitle min-w-full py-1"
+          >
+            Ingresar
+          </Mono.Button>
+        </div>
 
-      <Link
-        to="/reset-password"
-        className="text-blue-600 text-sm font-medium hover:underline cursor-pointer"
-      >
-        ¿Olvidaste tu contraseña?
-      </Link>
+        <div className="flex justify-center pb-4">
+          <Google />
+        </div>
+      </form>
 
       {message && (
         <p className="text-center text-sm text-red-500 font-medium">
@@ -131,15 +144,17 @@ export default function LoginForm({ onSwitch }) {
         </p>
       )}
 
-      <p className="text-center text-sm text-gray-600 pt-5">
-        ¿No tienes cuenta?{" "}
-        <button
-          onClick={onSwitch}
-          className="text-blue-600 font-medium hover:underline cursor-pointer"
-        >
-          Regístrate
-        </button>
-      </p>
-    </div>
+      <div className="border-t pt-4">
+        <p className="text-center text-sm text-gray-800">
+          ¿No tienes cuenta?{" "}
+          <button
+            onClick={onSwitch}
+            className="mono-text-tertiary text-orange text-sm hover:underline cursor-pointer"
+          >
+            Regístrate
+          </button>
+        </p>
+      </div>
+    </Mono.Card>
   );
 }
