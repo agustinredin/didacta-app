@@ -1,5 +1,29 @@
 {
     "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "src/*"
+            ],
+            "@core/*": [
+                "src/core/*"
+            ],
+            "@domain/*": [
+                "src/domain/*"
+            ],
+            "@styles/*": [
+                "src/styles/*"
+            ],
+            "@ui/*": [
+                "src/ui/*"
+            ],
+            "@ui": [
+                "src/ui"
+            ],
+            "@utils/*": [
+                "src/ui/*"
+            ]
+        },
         "target": "esnext",
         "useUnknownInCatchVariables": false,
         "lib": [
@@ -8,10 +32,11 @@
             "ESNext"
         ],
         "skipLibCheck": true,
-        "checkJs": true,
+        "checkJs": false,
         "esModuleInterop": true,
         "allowJs": true,
         "strict": false,
+        "noImplicitAny": false, // allow implicit any
         "forceConsistentCasingInFileNames": true,
         "module": "ESNext",
         "moduleResolution": "bundler",
@@ -27,6 +52,6 @@
     },
     "include": [
         "src",
-        "env.d.ts"
+        "global.d.ts"
     ]
 }

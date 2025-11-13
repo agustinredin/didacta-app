@@ -1,0 +1,82 @@
+@import "tw-animate-css";
+
+/* INFO: las definiciones se hacen adentro de este dark gigante para 1  no tener que poner .dark en todas y 2 que si no pones .dark no aplique siempre. muchisimo mas sencillo asi */
+.dark {
+  --white: #ebeaea;
+  --color-white: #ebeaea;
+  --black: #131212;
+  --color-black: #131212;
+  --gray: #838b99;
+  --color-gray: #838b99;
+
+  #root {
+    @apply bg-black text-white;
+  }
+
+  /* #region mono-card */
+
+  .mono-card {
+    @apply border-3 border-white transition-transform flex bg-black shadow-[4px_4px_0px_white];
+  }
+
+
+  .mono-card:hover {
+    @apply mono-card-animation shadow-[6px_6px_0px_white];
+  }
+
+  .mono-card-secondary {
+    @apply border-3 border-white bg-gray text-lightgray shadow-xs hover:bg-gray;
+  }
+
+  .mono-card-tertiary {
+    @apply border-3 border-white transition-transform flex bg-black shadow-[6px_6px_0_var(--orange)] text-white;
+  }
+
+  .mono-card-tertiary:hover {
+    @apply mono-card-animation shadow-[6px_6px_0_var(--orange)];
+  }
+
+  /* #endregion mono-card */
+
+  /* #region mono-button */
+  .mono-button {
+    @apply hover:text-orange hover:bg-transparent hover:border-orange hover:[&_svg]:fill-orange active:bg-orange-900;
+  }
+
+  .mono-button-secondary {
+    @apply bg-white text-black border-white hover:text-white hover:bg-transparent hover:border-white active:bg-orange-900;
+  }
+
+  .mono-button-tertiary {
+    @apply bg-black text-white border-white hover:text-black hover:bg-white active:bg-orange-100;
+  }
+
+  /* #endregion mono-button */
+
+  /* #region mono-input */
+  .mono-input {
+    @apply bg-black text-white border-white placeholder-gray-400;
+  }
+
+  .mono-input:hover,
+  .mono-input:focus,
+  .mono-input:active {
+    @apply bg-orange-900;
+  }
+
+  .mono-input:focus,
+  .mono-input:active {
+    @apply shadow-[2px_2px_0px_var(--color-orange-600)];
+  }
+
+  .mono-input-error {
+    @apply border-red-600;
+  }
+
+  .mono-input-error:focus,
+  .mono-input-error:active {
+    @apply shadow-[2px_2px_0px_var(--color-error)];
+  }
+
+  /* #endregion mono-input */
+}

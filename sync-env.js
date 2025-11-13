@@ -1,4 +1,4 @@
-import { writeFileSync, readFileSync, existsSync } from "fs";
+import { writeFileSync, existsSync } from "fs";
 import { execSync } from "child_process";
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
 
@@ -90,9 +90,9 @@ async function main() {
     console.log(`Sincronización completada (${envChoice}).`);
 }
 
-// main()
-//     .then(() => process.exit(0))
-//     .catch((err) => {
-//         console.error("Error general en sync-env:", err);
-//         process.exit(1);
-//     });
+main()
+    .then(() => process.exit(0))
+    .catch((err) => {
+        console.error("Error general en sync-env:", err);
+        process.exit(1);
+    });
