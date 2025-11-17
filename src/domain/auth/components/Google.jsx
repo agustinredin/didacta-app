@@ -5,11 +5,11 @@ import { onGoogleSuccess } from "../handlers/onGoogleSuccess";
 import { GoogleLogin } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 
+//TODO: queda ver desde aca para abajo todos los refactor y pensar struct carpetas (post macro - 20/11)
 const Google = ({ props }) => {
   const navigate = useNavigate();
 
   return (
-    // Si le pones type = "icon" no se muestra el logo de google // cambiar la ruta del navigate
     <GoogleLogin
       text="continue_with"
       locale="es-ES"

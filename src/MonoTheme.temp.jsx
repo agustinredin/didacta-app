@@ -23,8 +23,8 @@ const MonoTheme = () => {
   const [test, setTest] = useState(0);
   const toastMagic = useCallback(() => {
     ui.showToast(
-      "info",
       "Título mayus",
+      "info",
       "desc minus",
       5000
       //   5000,

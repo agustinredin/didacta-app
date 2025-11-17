@@ -33,7 +33,6 @@ const ResetPassword = () => {
 
   return (
     <section className="w-screen h-screen flex flex-col justify-center items-center">
-      {/* TODO: Decidir si este div va dentro o fuera de la card. Se aceptan sugerencias aparte de la mencionada. */}
       <div className="flex flex-col items-center max-w-xs pb-8">
         <img src="/Logo.png" className="w-28" alt="" />
         <p className="mono-text-tertiary text-gray text-xs text-center">

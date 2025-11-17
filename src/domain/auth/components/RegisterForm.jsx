@@ -3,6 +3,7 @@ import Google from "./Google";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
 import * as Mono from "@ui";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function RegisterForm({ onSwitch }) {
   // TODO: REFACTORIZAR LOGICA, EMPEZAR POR UNIFICAR FORMDATA EN UN SOLO ARCHIVO
@@ -11,9 +12,11 @@ export default function RegisterForm({ onSwitch }) {
     email: "",
     password: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const { register } = useAuth();
+
   const navigate = useNavigate();
 
   const handleChange = (e) =>
@@ -82,23 +85,33 @@ export default function RegisterForm({ onSwitch }) {
           />
         </div>
 
-        <div>
+        <div className="relative">
           <label
-            htmlFor="email"
+            htmlFor="password"
             className="block text-left text-sm mono-text-secondary text-gray-800 mb-1"
           >
             Contraseña
           </label>
           <Mono.InputText
-            type="password"
+            type={showPassword ? "text" : "password"}
             name="password"
             value={formData.password}
             onChange={handleChange}
           />
+          <button
+            type="button"
+            onClick={() => setShowPassword((prev) => !prev)}
+            className="absolute inset-y-0 right-3 flex items-end pb-3 text-gray-600"
+            aria-label={
+              showPassword ? "Ocultar contraseña" : "Mostrar contraseña"
+            }
+          >
+            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+          </button>
         </div>
         <Mono.Button
           type="submit"
-          className="mono-text-subtitle min-w-full  py-1"
+          className="mono-text-subtitle min-w-full py-1"
         >
           Registrarse
         </Mono.Button>

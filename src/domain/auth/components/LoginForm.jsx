@@ -6,16 +6,16 @@ import * as Mono from "@ui";
 import Google from "./Google";
 import { signInWithGoogle } from "../auth";
 import { apiClient } from "@/core/api";
+import { Eye, EyeOff } from "lucide-react";
+import { useUI } from "@/core/context/UIContext";
 
 export default function LoginForm({ onSwitch }) {
+  const { ui } = useUI();
   const [formData, setFormData] = useState({ email: "", password: "" });
-  const [message, setMessage] = useState("");
   const { login } = useAuth();
   const navigate = useNavigate();
   const [hint, setHint] = useState(false);
-
-  //TODO unificar endpoints arrancando por aca: el resetLink de auth.controller.resetPassword viene al login y toma el valor de searchparamas
-  //useSearchParams()
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,55 +23,45 @@ export default function LoginForm({ onSwitch }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const res = await fetch("http://localhost:8080/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await res.json();
-      if (res.ok) {
-        login(data.name, data.token);
-        navigate("/profile");
-      } else {
-        setMessage(`❌ ${data.message}`);
+      const res = await apiClient.post("/auth/login", formData);
+      if (res.status == 200) {
+        const { user, token } = res.data;
+        login(user, token);
+        navigate("/menu");
       }
-    } catch {
-      setMessage("Error de conexión con el servidor");
+    } catch (e) {
+      let msg = e.response?.data?.message;
+      msg && ui.showToast(msg, "error");
     }
   };
 
   useEffect(() => {
-    const checkGoogleHint = async () => {
-      const email = formData.email;
-      if (!email) return;
-      try {
-        const res = await fetch(
-          `http://localhost:8080/auth/google-hint?email=${encodeURIComponent(
-            email
-          )}`
-        );
-        if (!res.ok) return;
-        const data = await res.json();
-        setHint(data.showHint);
-      } catch {
-        setHint(false);
-      }
-    };
-
-    const timeout = setTimeout(checkGoogleHint, 400); // Se utiliza debounce para que no se actualice cada vez que se modifica el input de email. Ejecuta la funcion cada 400ms
-    return () => clearTimeout(timeout);
+    // const checkGoogleHint = async () => {
+    //   const email = formData.email;
+    //   if (!email) return;
+    //   try {
+    //     const res = await fetch(
+    //       `http://localhost:8080/auth/google-hint?email=${encodeURIComponent(
+    //         email
+    //       )}`
+    //     );
+    //     if (!res.ok) return;
+    //     const data = await res.json();
+    //     setHint(data.showHint);
+    //   } catch {
+    //     setHint(false);
+    //   }
+    // };
+    // const timeout = setTimeout(checkGoogleHint, 400);
+    // return () => clearTimeout(timeout);
   }, [formData.email]);
 
   return (
     <Mono.Card className="flex-col bg-white shadow-lg p-10 space-y-4 min-w-115">
       <div className="flex items-center flex-col">
         <img src="/Logo.png" className="w-28" alt="" />
-        <h2 className="text-2xl font-semibold text-center text-gray-800">
-          {/* Bienvenido de nuevo */}
-        </h2>
+        <h2 className="text-2xl font-semibold text-center text-gray-800"></h2>
         <h2 className="mono-text-title text-center text-lg font-semibold text-orange-500 pb-2">
           Bienvenido de nuevo
         </h2>
@@ -86,13 +76,12 @@ export default function LoginForm({ onSwitch }) {
             Correo electrónico
           </label>
           <Mono.InputText
+            minLength={3}
             type="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className={""}
           />
-          {/* TODO: HACER UN HINT MÁS ATRACTIVO, ESTE ES SOLO DE PRUEBA */}
           {hint && (
             <p className="text-sm text-gray-500 mt-1">
               Este correo está asociado a una cuenta de Google.
@@ -101,7 +90,7 @@ export default function LoginForm({ onSwitch }) {
         </div>
 
         <div>
-          <div className="flex items-center space-x-40">
+          <div className="flex items-center justify-between">
             <label
               htmlFor="password"
               className="block text-left text-sm mono-text-secondary text-gray-800 mb-1"
@@ -116,12 +105,25 @@ export default function LoginForm({ onSwitch }) {
             </Link>
           </div>
 
-          <Mono.InputText
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-          />
+          <div className="relative">
+            <Mono.InputText
+              minLength={6}
+              type={showPassword ? "text" : "password"}
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute inset-y-0 right-3 flex items-center text-gray-600"
+              aria-label={
+                showPassword ? "Ocultar contraseña" : "Mostrar contraseña"
+              }
+            >
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            </button>
+          </div>
         </div>
 
         <div className="w-full flex justify-center">
@@ -137,12 +139,6 @@ export default function LoginForm({ onSwitch }) {
           <Google />
         </div>
       </form>
-
-      {message && (
-        <p className="text-center text-sm text-red-500 font-medium">
-          {message}
-        </p>
-      )}
 
       <div className="border-t pt-4">
         <p className="text-center text-sm text-gray-800">

@@ -14,8 +14,8 @@
   @apply font-mono font-medium tracking-tight text-gray;
 }
 
-.mono-text-tertiary{
-  @apply font-mono font-semibold tracking-[0.01em]
+.mono-text-tertiary {
+  @apply font-mono font-semibold tracking-[0.01em];
 }
 
 .geist {
@@ -104,7 +104,6 @@
 
 /* #region mono-input */
 
-/* TODO: hover state, label state (gray=>darkgray), texto de ayuda en error en mayus */
 .mono-input {
   @apply w-full font-mono text-md border-2 border-black bg-slate-50 text-black placeholder-gray-600 p-2 outline-none transition-all duration-75;
 }

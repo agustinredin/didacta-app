@@ -2,13 +2,12 @@ import { Toast } from "@/ui";
 import { useState, createContext, useContext } from "react";
 import UsePersistedState from "../hooks/usePersistedState";
 
-//TODO: UI Context con dark theme y toast por ahora
 const UIContext = createContext();
 
 export const UIProvider = ({ children }) => {
   const showToast = (
-    state = "default",
     title,
+    state = "default",
     message,
     duration,
     onClose,

@@ -3,7 +3,7 @@ import { DotIcon, InfoIcon, XIcon } from "lucide-react";
 import { memo, useState, useEffect } from "react";
 
 export const MonoToast = memo(
-  ({ state, title, message, duration, onClose, actionJSX }) => {
+  ({ title, state, message, duration, onClose, actionJSX }) => {
     const [isVisible, setIsVisible] = useState(false);
     const [isExiting, setIsExiting] = useState(false);
     const animationDuration = 500;

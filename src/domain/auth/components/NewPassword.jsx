@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState } from "react";
+import * as Mono from "@ui";
 
 export default function NewPassword() {
   const { token } = useParams();
@@ -21,12 +22,12 @@ export default function NewPassword() {
     setMessage(data.message);
   };
 
-
   return (
-    <div style={{ textAlign: "center", marginTop: "40px" }}>
-      <h2>Restablecer contraseña</h2>
-      <form onSubmit={handleSubmit}>
-        <input
+    <Mono.Card className={"flex-col items-center space-y-5 p-10 min-w-115"}>
+      <img src="/Logo.png" className="w-28" alt="Logotipo de didacta" />
+      <h2 className="mono-text-title text-orange">Restablecer contraseña</h2>
+      <form className="w-full" onSubmit={handleSubmit}>
+        <Mono.InputText
           type="password"
           placeholder="Nueva contraseña"
           value={password}
@@ -34,7 +35,7 @@ export default function NewPassword() {
           required
         />
         <br />
-        <input
+        <Mono.InputText
           type="password"
           placeholder="Confirmar contraseña"
           value={confirm}
@@ -42,11 +43,11 @@ export default function NewPassword() {
           required
         />
         <br />
-        <button type="submit">Guardar</button>
       </form>
+      <Mono.Button className={"min-w-full py-1"} type="submit">
+        Restablecer
+      </Mono.Button>
       <p>{message}</p>
-    </div>
+    </Mono.Card>
   );
 }
-
-//RESETEO EXITOSO ? NAVIGATE A LOGIN
